@@ -12,6 +12,7 @@ const HeaderContainer = styled.header`
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid #2b2b2b;
+  background-color: #0d0d0d;
 `;
 
 // Brand name styling
@@ -77,14 +78,19 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const Header = () => {
+const Header = ({ searchTerm, onSearchChange }) => {
   return (
     <HeaderContainer>
       <Brand>
         <Span>Virtu</Span>Mart
       </Brand>
       <SearchContainer>
-        <SearchInput type="text" placeholder="Search" />
+        <SearchInput
+          type="text"
+          value={searchTerm}
+          onChange={onSearchChange}
+          placeholder="Search..."
+        />
         <SearchButton>Q</SearchButton>
       </SearchContainer>
       <NavLinks>
