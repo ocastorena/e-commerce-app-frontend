@@ -1,14 +1,11 @@
-// src/features/register/RegisterSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createUser } from "../../api/users";
 
-// Async thunk to handle user registration.
-// Adjust the endpoint '/api/register' as needed for your backend.
 export const register = createAsyncThunk(
   "register/registerUser",
-  async (userData, thunkAPI) => {
+  async ({ username, password, email, address }, thunkAPI) => {
     try {
-      const response = await axios.post("/api/register", userData);
+      const response = await createUser(username, password, email, address);
       return response.data;
     } catch (error) {
       // Return a rejected promise with error message.
@@ -25,7 +22,7 @@ const initialState = {
   error: null,
 };
 
-const registerSlice = createSlice({
+const userSlice = createSlice({
   name: "register",
   initialState,
   reducers: {
@@ -48,4 +45,6 @@ const registerSlice = createSlice({
   },
 });
 
-export default registerSlice.reducer;
+export const selectIsLoading = (state) => state.loading;
+export const selectError = (state) => state.error;
+export default userSlice.reducer;

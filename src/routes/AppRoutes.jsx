@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../features/home/HomePage";
 import Login from "../features/auth/LoginPage";
-import Register from "../features/register/RegisterPage";
+import RegisterPage from "../features/user/RegisterPage";
 import Account from "../features/user/AccountPage";
 import Cart from "../features/cart/CartPage";
 
@@ -18,7 +18,7 @@ const AppRoutes = () => {
       </Route>
       {/* Routes without Header and Footer */}
       <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="/register" element={<RegisterPage />} />
     </Routes>
   );
 };
