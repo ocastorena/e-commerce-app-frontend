@@ -55,11 +55,16 @@ const RegisterContainer = () => {
     }
   };
 
+  const handleLogin = () => {
+    navigate('/login');
+  };
+
   return (
     <RegisterView
       formData={formData}
       onChange={handleChange}
       onSubmit={handleSubmit}
+      onLogin={handleLogin}
       loading={loading}
       error={error || validationError}
     />
