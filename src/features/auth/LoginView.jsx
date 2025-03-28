@@ -8,7 +8,6 @@ const LoginWrapper = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #0f0f0f; /* Dark background */
   color: #fff;              /* Light text for contrast */
 `;
 

@@ -6,6 +6,7 @@ const Container = styled.div`
   max-width: 400px;
   margin: 2rem auto;
   padding: 2rem;
+  background-color: #1b1b1b;
   border: 1px solid #2b2b2b;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -26,19 +27,44 @@ const Input = styled.input`
   padding: 0.75rem;
   border: 1px solid #2b2b2b;
   border-radius: 4px;
-  background-color: #1e1e1e;
-`;
-
-const Button = styled.button`
-  padding: 0.75rem;
   background-color: #2b2b2b;
   color: #fff;
+`;
+
+const SubmitButton = styled.button`
+  padding: 0.75rem;
   border: none;
   border-radius: 4px;
+  background-color: #4d8bf5; /* Accent color */
+  color: #fff;
+  font-weight: 600;
   cursor: pointer;
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #3a6dc2; /* Darken on hover */
+  }
+`;
+
+const RegisterSection = styled.div`
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+`;
+
+const RegisterButton = styled.button`
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #4d8bf5;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #3a6dc2;
   }
 `;
 
@@ -47,10 +73,17 @@ const ErrorMessage = styled.div`
   text-align: center;
 `;
 
-const RegisterView = ({ formData, onChange, onSubmit, loading, error }) => {
+const RegisterView = ({
+  formData,
+  onChange,
+  onSubmit,
+  onLogin,
+  loading,
+  error,
+}) => {
   return (
     <Container>
-      <Title>Create an Account</Title>
+      <Title>Welcome</Title>
       {error && <ErrorMessage>{error}</ErrorMessage>}
       <Form onSubmit={onSubmit}>
         <Input
@@ -88,10 +121,16 @@ const RegisterView = ({ formData, onChange, onSubmit, loading, error }) => {
           value={formData.address}
           onChange={onChange}
         />
-        <Button type="submit" disabled={loading}>
+        <SubmitButton type="submit" disabled={loading}>
           {loading ? "Registering..." : "Register"}
-        </Button>
+        </SubmitButton>
       </Form>
+      <RegisterSection>
+        <p>Already have an account?</p>
+        <RegisterButton type="button" onClick={onLogin}>
+          Log in
+        </RegisterButton>
+      </RegisterSection>
     </Container>
   );
 };
