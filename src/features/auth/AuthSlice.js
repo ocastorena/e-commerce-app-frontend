@@ -1,5 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { loginUser } from "../../api/auth";
+import {
+  loginUser,
+  loginGoogle,
+  loginFacebook,
+  loginGithub,
+} from "../../api/auth";
 
 export const login = createAsyncThunk(
   "auth/login",
@@ -10,6 +15,42 @@ export const login = createAsyncThunk(
       return response;
     } catch (error) {
       // Return a rejected action containing the error message
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const loginWithGoogle = createAsyncThunk(
+  "auth/loginWithGoogle",
+  async (_, thunkAPI) => {
+    try {
+      const response = await loginGoogle();
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const loginWithFacebook = createAsyncThunk(
+  "auth/loginWithFacebook",
+  async (_, thunkAPI) => {
+    try {
+      const response = await loginFacebook();
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const loginWithGithub = createAsyncThunk(
+  "auth/loginWithGithub",
+  async (_, thunkAPI) => {
+    try {
+      const response = await loginGithub();
+      return response;
+    } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
@@ -42,6 +83,45 @@ const authSlice = createSlice({
         state.user = action.payload.user;
       })
       .addCase(login.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || action.error.message;
+      })
+      .addCase(loginWithGoogle.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(loginWithGoogle.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.token = action.payload.token;
+        state.user = action.payload.user;
+      })
+      .addCase(loginWithGoogle.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || action.error.message;
+      })
+      .addCase(loginWithFacebook.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(loginWithFacebook.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.token = action.payload.token;
+        state.user = action.payload.user;
+      })
+      .addCase(loginWithFacebook.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || action.error.message;
+      })
+      .addCase(loginWithGithub.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(loginWithGithub.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.token = action.payload.token;
+        state.user = action.payload.user;
+      })
+      .addCase(loginWithGithub.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload || action.error.message;
       });
