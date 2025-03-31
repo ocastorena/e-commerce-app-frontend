@@ -1,0 +1,22 @@
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-size: 100%; /* Sets a base for rem units */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0 auto;
+  padding: 0 1rem;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  background-color: #0d0d0d; /* Or any default background */
+  color: #fff; /* Default text color */
+  min-height: 100vh; /* Ensures body covers full viewport height */
+  max-width: 1440px;
+}

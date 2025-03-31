@@ -10,7 +10,6 @@ const HeaderContainer = styled.header`
   grid-template-columns: 1fr 2fr 1fr;
   gap: 2rem;
   align-items: center;
-  justify-content: center;
   border-bottom: 1px solid #2b2b2b;
 `;
 
@@ -27,21 +26,19 @@ const Span = styled.span`
 // Search bar container
 const SearchContainer = styled.div`
   display: flex;
-  align-items: center;
+  width: 100%;
+  justify-self: center;
   max-width: 600px; /* Limit width so it doesn't grow too large */
-  background-color: #000; /* Black background for the search bar */
-  border: 1px solid #333; /* Subtle border */
-  border-radius: 4px;
 `;
 
 // Search input field
 const SearchInput = styled.input`
   flex: 1;
-  border: none;
-  background-color: transparent;
-  color: #fff;
+  background-color: #000;
   padding: 0.5rem;
-
+  border: 1px solid #2b2b2b;
+  border-right: 0;
+  border-radius: 4px 0 0 4px;
   &:focus {
     outline: none;
   }
@@ -49,14 +46,15 @@ const SearchInput = styled.input`
 
 // Search button
 const SearchButton = styled.button`
-  background-color: #333;
-  color: #fff;
+  background-color: #d9d9d9;
   border: none;
   padding: 0.5rem 1rem;
   cursor: pointer;
-
+  border: 1px solid #d9d9d9;
+  border-radius: 0 4px 4px 0;
   &:hover {
-    background-color: #444;
+    background-color: #aaaaaa;
+    border-color: #aaaaaa;
   }
 `;
 
@@ -77,14 +75,19 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const Header = () => {
+const Header = ({ searchTerm, onSearchChange }) => {
   return (
     <HeaderContainer>
       <Brand>
         <Span>Virtu</Span>Mart
       </Brand>
       <SearchContainer>
-        <SearchInput type="text" placeholder="Search" />
+        <SearchInput
+          type="text"
+          value={searchTerm}
+          onChange={onSearchChange}
+          placeholder="Search..."
+        />
         <SearchButton>Q</SearchButton>
       </SearchContainer>
       <NavLinks>
