@@ -1,6 +1,9 @@
 // src/features/auth/LoginView.jsx
 import React from "react";
 import styled from "styled-components";
+import googleIcon from "../../assets/google-login.svg";
+import facebookIcon from "../../assets/facebook-login.svg";
+import githubIcon from "../../assets/github-login.svg"
 
 // Outer wrapper to center the login container
 const LoginWrapper = styled.div`
@@ -8,7 +11,7 @@ const LoginWrapper = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  color: #fff;              /* Light text for contrast */
+  color: #fff; /* Light text for contrast */
 `;
 
 // Container for the login form
@@ -77,6 +80,46 @@ const SubmitButton = styled.button`
   }
 `;
 
+const OrLabel = styled.div`
+  text-align: center;
+  margin: 1.5rem 0;
+  color: #ccc;
+  font-weight: 600;
+`;
+
+// Container for third-party auth buttons
+const SocialLoginContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1.5rem 0; /* Add spacing above/below */
+`;
+
+// Individual social login button
+const SocialLoginButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #333;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #444;
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+`;
+
 const RegisterSection = styled.div`
   margin-top: 1.5rem;
   text-align: center;
@@ -106,6 +149,9 @@ const LoginView = ({
   onPasswordChange,
   onSubmit,
   onRegister,
+  onLoginWithGoogle,
+  onLoginWithFacebook,
+  onLoginWithGithub,
 }) => {
   return (
     <LoginWrapper>
@@ -134,6 +180,29 @@ const LoginView = ({
           </FormGroup>
           <SubmitButton type="submit">Login</SubmitButton>
         </Form>
+
+        <OrLabel>or</OrLabel>
+
+        <SocialLoginContainer>
+          <SocialLoginButton type="button" onClick={onLoginWithGoogle}>
+            {/* Replace with the actual path to your Google icon */}
+            <img src={googleIcon} alt="Google" />
+            Continue with Google
+          </SocialLoginButton>
+
+          <SocialLoginButton type="button" onClick={onLoginWithFacebook}>
+            {/* Replace with the actual path to your Facebook icon */}
+            <img src={facebookIcon} alt="Facebook" />
+            Continue with Facebook
+          </SocialLoginButton>
+
+          <SocialLoginButton type="button" onClick={onLoginWithGithub}>
+            {/* Replace with the actual path to your GitHub icon */}
+            <img src={githubIcon} alt="GitHub" />
+            Continue with GitHub
+          </SocialLoginButton>
+        </SocialLoginContainer>
+
         <RegisterSection>
           <p>Don't have an account?</p>
           <RegisterButton type="button" onClick={onRegister}>
