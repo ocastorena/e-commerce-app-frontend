@@ -1,14 +1,15 @@
-// src/features/user/RegisterContainer.jsx
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { register, selectIsLoading, selectError } from "./UserSlice";
 import RegisterView from "./RegisterView";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegisterContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const loading = useSelector(selectIsLoading); // Assume user slice holds loading/error
+  const loading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
   const [formData, setFormData] = useState({
@@ -48,26 +49,33 @@ const RegisterContainer = () => {
     setValidationError(null);
     const resultAction = await dispatch(register(formData));
     if (register.fulfilled.match(resultAction)) {
-      navigate("/");
+      toast.success("Registration successful!", {
+        onClose: () => {
+          navigate("/");
+        },
+      });
     } else {
-      // Additional error handling can be implemented here.
+      toast.error("Registration failed. Please try again.");
       console.error("Registration failed");
     }
   };
 
   const handleLogin = () => {
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
-    <RegisterView
-      formData={formData}
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-      onLogin={handleLogin}
-      loading={loading}
-      error={error || validationError}
-    />
+    <>
+      <ToastContainer />
+      <RegisterView
+        formData={formData}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+        onLogin={handleLogin}
+        loading={loading}
+        error={error || validationError}
+      />
+    </>
   );
 };
 
