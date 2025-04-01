@@ -22,13 +22,7 @@ export const loginGoogle = async () => {
 };
 
 export const loginFacebook = async () => {
-  const clientId = import.meta.env.VITE_FACEBOOK_CLIENT_ID;
-  const redirectUri = import.meta.env.VITE_FACEBOOK_REDIRECT_URI;
-  const scope = "email";
-  const url = `https://www.facebook.com/v10.0/dialog/oauth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${encodeURIComponent(
-    scope
-  )}`;
-  window.location.href = url;
+  window.location.href = `${API_BASE_URL}/login/facebook`;
 };
 
 export const loginGithub = async () => {
