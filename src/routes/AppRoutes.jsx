@@ -13,6 +13,12 @@ import { selectIsAuthenticated } from "../features/auth/AuthSlice";
 
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
+
+  if (isAuthenticated === null) {
+    // Render a loading indicator while authentication is being checked
+    return <div>Loading...</div>;
+  }
+
   return isAuthenticated ? children : <Navigate to="/login" />;
 };
 
@@ -20,24 +26,16 @@ const AppRoutes = () => {
   return (
     <Routes>
       {/* Routes that share Header and Footer */}
-      <Route element={<MainLayout />}>
+      <Route
+        element={
+          <ProtectedRoute>
+            <MainLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route path="/" element={<Home />} />
-        <Route
-          path="/account"
-          element={
-            <ProtectedRoute>
-              <Account />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <ProtectedRoute>
-              <Cart />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/account" element={<Account />} />
+        <Route path="/cart" element={<Cart />} />
       </Route>
       {/* Routes without Header and Footer */}
       <Route path="/login" element={<Login />} />
