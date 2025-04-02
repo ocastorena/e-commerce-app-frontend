@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import googleIcon from "../../assets/google-login.svg";
 import facebookIcon from "../../assets/facebook-login.svg";
-import githubIcon from "../../assets/github-login.svg"
+import githubIcon from "../../assets/github-login.svg";
 
 // Outer wrapper to center the login container
 const LoginWrapper = styled.div`
