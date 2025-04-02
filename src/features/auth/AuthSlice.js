@@ -1,10 +1,23 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
+  getSession,
   loginUser,
   loginGoogle,
   loginFacebook,
   loginGithub,
 } from "../../api/auth";
+
+export const checkAuth = createAsyncThunk(
+  "auth/checkAuth",
+  async (_, thunkAPI) => {
+    try {
+      const response = await getSession();
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const login = createAsyncThunk(
   "auth/login",
@@ -56,35 +69,51 @@ export const loginWithGithub = createAsyncThunk(
   }
 );
 
+const initialState = {
+  user: null,
+  isAuthenticated: null,
+  isLoading: false,
+  error: null,
+};
+
 const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    token: null,
-    user: null,
-    isAuthenticated: false,
-    isLoading: false,
-    error: null,
-  },
+  initialState,
   reducers: {
     logout: (state) => {
-      state.token = null;
       state.user = null;
+      state.isAuthenticated = false;
     },
   },
   extraReducers: (builder) => {
     builder
+      .addCase(checkAuth.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(checkAuth.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload;
+      })
+      .addCase(checkAuth.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || action.error.message;
+        state.isAuthenticated = false;
+      })
       .addCase(login.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.token = action.payload.token;
+        state.isAuthenticated = true;
         state.user = action.payload.user;
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload || action.error.message;
+        state.isAuthenticated = false;
       })
       .addCase(loginWithGoogle.pending, (state) => {
         state.isLoading = true;
@@ -129,5 +158,6 @@ const authSlice = createSlice({
 });
 
 export const selectIsAuthenticated = (state) => state.auth.isAuthenticated;
+
 export const { logout } = authSlice.actions;
 export default authSlice.reducer;

@@ -8,6 +8,8 @@ import {
   loginWithGithub,
 } from "./AuthSlice";
 import LoginView from "./LoginView";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -22,8 +24,14 @@ const LoginPage = () => {
     e.preventDefault();
     const resultAction = await dispatch(login({ email, password }));
     if (login.fulfilled.match(resultAction)) {
-      console.log("Login successful");
+      console.log("Login good");
+      toast.success("Login successful!", {
+        onClose: () => {
+          navigate("/");
+        },
+      });
     } else {
+      toast.error("Login failed. Please try again.");
       console.error("Login failed");
     }
   };
@@ -75,17 +83,20 @@ const LoginPage = () => {
   };
 
   return (
-    <LoginView
-      email={email}
-      password={password}
-      onEmailChange={handleEmailChange}
-      onPasswordChange={handlePasswordChange}
-      onSubmit={handleSubmit}
-      onRegister={handleRegister}
-      onLoginWithGoogle={handleLoginWithGoogle}
-      onLoginWithFacebook={handleLoginWithFacebook}
-      onLoginWithGithub={handleLoginWithGithub}
-    />
+    <>
+      <ToastContainer />
+      <LoginView
+        email={email}
+        password={password}
+        onEmailChange={handleEmailChange}
+        onPasswordChange={handlePasswordChange}
+        onSubmit={handleSubmit}
+        onRegister={handleRegister}
+        onLoginWithGoogle={handleLoginWithGoogle}
+        onLoginWithFacebook={handleLoginWithFacebook}
+        onLoginWithGithub={handleLoginWithGithub}
+      />
+    </>
   );
 };
 
