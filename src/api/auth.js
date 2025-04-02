@@ -22,6 +22,15 @@ export const loginUser = async (email, password) => {
   return response.data;
 };
 
+export const logoutUser = async () => {
+  const response = await axios.post(
+    `${API_BASE_URL}/logout`,
+    {},
+    { withCredentials: true }
+  );
+  return response.data;
+};
+
 export const loginGoogle = async () => {
   const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
   const redirectUri = import.meta.env.VITE_GOOGLE_REDIRECT_URI;

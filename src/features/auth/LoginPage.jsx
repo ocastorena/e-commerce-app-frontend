@@ -24,7 +24,6 @@ const LoginPage = () => {
     e.preventDefault();
     const resultAction = await dispatch(login({ email, password }));
     if (login.fulfilled.match(resultAction)) {
-      console.log("Login good");
       toast.success("Login successful!", {
         onClose: () => {
           navigate("/");
