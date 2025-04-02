@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   getSession,
   loginUser,
+  logoutUser,
   loginGoogle,
   loginFacebook,
   loginGithub,
@@ -32,6 +33,15 @@ export const login = createAsyncThunk(
     }
   }
 );
+
+export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
+  try {
+    await logoutUser();
+    return; // No payload needed
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
 
 export const loginWithGoogle = createAsyncThunk(
   "auth/loginWithGoogle",
@@ -80,10 +90,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logout: (state) => {
-      state.user = null;
-      state.isAuthenticated = false;
-    },
+    // Additional synchronous actions if needed
   },
   extraReducers: (builder) => {
     builder
@@ -114,6 +121,18 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload || action.error.message;
         state.isAuthenticated = false;
+      })
+      .addCase(logout.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.isLoading = false;
+        state.user = null;
+        state.isAuthenticated = false;
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || action.error.message;
       })
       .addCase(loginWithGoogle.pending, (state) => {
         state.isLoading = true;
@@ -159,5 +178,4 @@ const authSlice = createSlice({
 
 export const selectIsAuthenticated = (state) => state.auth.isAuthenticated;
 
-export const { logout } = authSlice.actions;
 export default authSlice.reducer;

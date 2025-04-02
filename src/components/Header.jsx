@@ -1,7 +1,7 @@
-// Header.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import searchIcon from "../assets/search-icon.svg";
 
 // Overall container for the header
 const HeaderContainer = styled.header`
@@ -34,6 +34,7 @@ const SearchContainer = styled.div`
 // Search input field
 const SearchInput = styled.input`
   flex: 1;
+  color: #fff;
   background-color: #000;
   padding: 0.5rem;
   border: 1px solid #2b2b2b;
@@ -58,11 +59,18 @@ const SearchButton = styled.button`
   }
 `;
 
+const StyledSearchIcon = styled.img`
+  width: 20px; /* or your desired width */
+  height: 20px;
+  object-fit: contain;
+`;
+
 // Nav links container
 const NavLinks = styled.nav`
   display: flex;
   gap: 1rem;
   justify-self: end;
+  align-items: center;
 `;
 
 // Individual link styling
@@ -75,7 +83,21 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const Header = ({ searchTerm, onSearchChange }) => {
+// Logout button
+const LogoutButton = styled.button`
+  background-color: #d9d9d9;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  &:hover {
+    background-color: #aaaaaa;
+    border-color: #aaaaaa;
+  }
+`;
+
+const Header = ({ searchTerm, onSearchChange, onLogout }) => {
   return (
     <HeaderContainer>
       <Brand>
@@ -88,12 +110,15 @@ const Header = ({ searchTerm, onSearchChange }) => {
           onChange={onSearchChange}
           placeholder="Search..."
         />
-        <SearchButton>Q</SearchButton>
+        <SearchButton>
+          <StyledSearchIcon src={searchIcon} alt="Search" />
+        </SearchButton>
       </SearchContainer>
       <NavLinks>
         <StyledLink to="/account">Account</StyledLink>
         <StyledLink to="/orders">Orders</StyledLink>
         <StyledLink to="/cart">Cart</StyledLink>
+        <LogoutButton onClick={onLogout}>Logout</LogoutButton>
       </NavLinks>
     </HeaderContainer>
   );

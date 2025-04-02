@@ -1,12 +1,12 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Header from "../components/Header";
+import HeaderContainer from "../features/headerSearch/HeaderContainer";
 import Footer from "../components/Footer";
 
 const MainLayout = ({ children }) => {
   return (
     <>
-      <Header />
+      <HeaderContainer />
       <main>{children || <Outlet />}</main>
       <Footer />
     </>
