@@ -5,6 +5,10 @@ import searchIcon from "../assets/search-icon.svg";
 
 // Overall container for the header
 const HeaderContainer = styled.header`
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* ensures it stays above other content */
+  background-color: #0d0d0d;
   padding: 1rem 2rem;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
