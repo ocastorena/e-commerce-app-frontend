@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import MainLayout from "../layouts/MainLayout";
-import Home from "../features/home/HomePage";
+import ProductPage from "../features/products/ProductPage";
 import Login from "../features/auth/LoginPage";
 import RegisterPage from "../features/user/RegisterPage";
 import Account from "../features/user/AccountPage";
@@ -25,6 +25,7 @@ const ProtectedRoute = ({ children }) => {
 const AppRoutes = () => {
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/products" />} />
       {/* Routes that share Header and Footer */}
       <Route
         element={
@@ -33,7 +34,7 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       >
-        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<ProductPage />} />
         <Route path="/account" element={<Account />} />
         <Route path="/cart" element={<Cart />} />
       </Route>
