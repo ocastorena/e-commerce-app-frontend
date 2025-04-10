@@ -32,8 +32,8 @@ function ProductPage() {
     dispatch(fetchCategories());
   }, [dispatch]);
 
-  const handleProductClick = (product) => {
-    navigate(`/products/${product.id}`);
+  const handleProductClick = (product_id) => {
+    navigate(`/products/${product_id}`);
   };
 
   const handleCategoryClick = (category) => {
