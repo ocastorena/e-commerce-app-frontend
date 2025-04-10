@@ -18,3 +18,8 @@ export const getProductsByCategory = async (category) => {
   );
   return response.data;
 };
+
+export const getProductById = async (id) => {
+  const response = await axios.get(`${API_BASE_URL}/products/${id}`);
+  return response.data;
+};
