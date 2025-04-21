@@ -1,33 +1,23 @@
 import axios from "axios";
+axios.defaults.withCredentials = true;
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 export const getSession = async () => {
-  const response = await axios.get(`${API_BASE_URL}/session`, {
-    withCredentials: true,
-  });
-
+  const response = await axios.get(`${API_BASE_URL}/session`);
   return response.data;
 };
 
 export const loginUser = async (email, password) => {
-  const response = await axios.post(
-    `${API_BASE_URL}/login`,
-    {
-      email,
-      password,
-    },
-    { withCredentials: true }
-  );
+  const response = await axios.post(`${API_BASE_URL}/login`, {
+    email,
+    password,
+  });
   return response.data;
 };
 
 export const logoutUser = async () => {
-  const response = await axios.post(
-    `${API_BASE_URL}/logout`,
-    {},
-    { withCredentials: true }
-  );
+  const response = await axios.post(`${API_BASE_URL}/logout`);
   return response.data;
 };
 
