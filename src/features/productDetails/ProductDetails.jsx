@@ -111,10 +111,16 @@ const Description = styled.p`
   color: #cccccc;
 `;
 
-function ProductDetails({ product }) {
+function ProductDetails({
+  product,
+  onBackClick,
+  onAddToCartClick,
+  quantity,
+  onQuantityChange,
+}) {
   return (
     <>
-      <BackButton>Back</BackButton>
+      <BackButton onClick={onBackClick}>Back</BackButton>
       <Container>
         {/* Top section with image on the left and product info on the right */}
         <TopRow>
@@ -127,7 +133,12 @@ function ProductDetails({ product }) {
             <ProductName>{product.name}</ProductName>
             <ProductPrice>${product.price}</ProductPrice>
             <ButtonsContainer>
-              <QuantitySelect id="quantity-select" name="quantity">
+              <QuantitySelect
+                id="quantity-select"
+                name="quantity"
+                value={quantity}
+                onChange={onQuantityChange}
+              >
                 {Array.from({ length: product.stock_quantity }, (_, index) => (
                   <option key={index + 1} value={index + 1}>
                     {index + 1}
@@ -135,7 +146,9 @@ function ProductDetails({ product }) {
                 ))}
               </QuantitySelect>
 
-              <AddToCartButton>Add to Cart</AddToCartButton>
+              <AddToCartButton onClick={onAddToCartClick}>
+                Add to Cart
+              </AddToCartButton>
             </ButtonsContainer>
           </InfoColumn>
           <DescriptionContainer>
