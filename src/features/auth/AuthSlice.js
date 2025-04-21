@@ -115,7 +115,7 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = true;
-        state.user = action.payload.user;
+        state.user = action.payload;
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
@@ -176,6 +176,7 @@ const authSlice = createSlice({
   },
 });
 
+export const selectUserId = (state) => state.auth.user.user_id;
 export const selectIsAuthenticated = (state) => state.auth.isAuthenticated;
 
 export default authSlice.reducer;

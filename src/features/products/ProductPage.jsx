@@ -14,6 +14,8 @@ import {
   selectCategoriesError,
   fetchProductsByCategory,
 } from "./ProductsSlice";
+import { fetchUserCartById } from "../cart/CartSlice";
+import { selectUserId } from "../auth/AuthSlice";
 
 function ProductPage() {
   const dispatch = useDispatch();
@@ -27,13 +29,16 @@ function ProductPage() {
   const categoriesLoading = useSelector(selectCategoriesLoading);
   const categoriesError = useSelector(selectCategoriesError);
 
+  const userId = useSelector(selectUserId);
+
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchCategories());
-  }, [dispatch]);
+    dispatch(fetchUserCartById(userId));
+  }, [dispatch, userId]);
 
-  const handleProductClick = (product) => {
-    navigate(`/products/${product.id}`);
+  const handleProductClick = (product_id) => {
+    navigate(`/products/${product_id}`);
   };
 
   const handleCategoryClick = (category) => {

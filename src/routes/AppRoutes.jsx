@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 import MainLayout from "../layouts/MainLayout";
 import ProductPage from "../features/products/ProductPage";
+import ProductDetailsPage from "../features/productDetails/ProductDetailsPage";
 import Login from "../features/auth/LoginPage";
 import RegisterPage from "../features/user/RegisterPage";
 import Account from "../features/user/AccountPage";
@@ -35,6 +36,7 @@ const AppRoutes = () => {
         }
       >
         <Route path="/products" element={<ProductPage />} />
+        <Route path="/products/:product_id" element={<ProductDetailsPage />} />
         <Route path="/account" element={<Account />} />
         <Route path="/cart" element={<Cart />} />
       </Route>

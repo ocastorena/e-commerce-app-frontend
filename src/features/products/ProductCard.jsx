@@ -42,7 +42,7 @@ const Star = styled.span`
 function ProductCard({ product, onClickProduct }) {
   const totalStars = 5; // maximum rating
   return (
-    <Card onClick={onClickProduct}>
+    <Card onClick={() => onClickProduct(product.product_id)}>
       <img
         src={`${import.meta.env.VITE_API_URL}${product.imageurl}`}
         alt={product.name}
