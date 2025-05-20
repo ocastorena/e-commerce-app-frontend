@@ -18,10 +18,16 @@ const HeaderContainer = styled.header`
 `;
 
 // Brand name styling
-const Brand = styled.h1`
+const Brand = styled(Link)`
   font-size: 2rem;
   font-weight: bold;
   justify-self: start;
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 const Span = styled.span`
   color: #6c39d2; /* Purple color for the logo text */
@@ -104,7 +110,7 @@ const LogoutButton = styled.button`
 const Header = ({ searchTerm, onSearchChange, onLogout }) => {
   return (
     <HeaderContainer>
-      <Brand>
+      <Brand to="/">
         <Span>Virtu</Span>Mart
       </Brand>
       <SearchContainer>

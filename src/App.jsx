@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import AppRoutes from "./routes/AppRoutes";
 import { useDispatch } from "react-redux";
-import { checkAuth } from "./features/auth/authSlice";
+import { checkAuth } from "./features/auth/AuthSlice";
 
 function App() {
   const dispatch = useDispatch();
