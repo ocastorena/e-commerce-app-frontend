@@ -9,6 +9,7 @@ import Login from "../features/auth/LoginPage";
 import RegisterPage from "../features/user/RegisterPage";
 import Account from "../features/user/AccountPage";
 import Cart from "../features/cart/CartPage";
+import Checkout from "../features/checkout/CheckoutPage";
 
 import { selectIsAuthenticated } from "../features/auth/AuthSlice";
 
@@ -39,6 +40,7 @@ const AppRoutes = () => {
         <Route path="/products/:product_id" element={<ProductDetailsPage />} />
         <Route path="/account" element={<Account />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Route>
       {/* Routes without Header and Footer */}
       <Route path="/login" element={<Login />} />

@@ -22,6 +22,11 @@ export const deleteItemFromCart = async (cart_id, product_id) => {
   return response;
 };
 
+export const deleteAllItemsFromCart = async (cart_id) => {
+  const response = await axios.delete(`${API_BASE_URL}/cart/${cart_id}`);
+  return response.data;
+};
+
 export const getCartItems = async (cart_id) => {
   const response = await axios.get(`${API_BASE_URL}/cart/${cart_id}/items`);
   return response.data;
