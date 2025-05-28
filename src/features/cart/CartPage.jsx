@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import CartList from "./CartList";
 import CartSummary from "./CartSummary";
 import {
@@ -15,6 +16,8 @@ import { selectUserId } from "../auth/AuthSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const userId = useSelector(selectUserId);
   const cartItems = useSelector(selectCartItems);
   const cartId = useSelector(selectCartId);
@@ -32,10 +35,6 @@ const Cart = () => {
     }
   }, [dispatch, cartId]);
 
-  if (cartItemsLoading || !cartItems) {
-    return <div>Loading...</div>;
-  }
-
   const handleRemove = (productId) => {
     dispatch(removeItemFromCart({ cart_id: cartId, product_id: productId }));
   };
@@ -51,8 +50,16 @@ const Cart = () => {
   };
 
   const handleCheckout = () => {
-    console.log("handling checkout");
+    navigate("/checkout");
   };
+
+  if (cartItemsLoading || !cartItems) {
+    return <div>Loading...</div>;
+  }
+
+  if (Array.isArray(cartItems) && cartItems.length === 0) {
+    return <div>Your cart is empty.</div>;
+  }
 
   return (
     <>

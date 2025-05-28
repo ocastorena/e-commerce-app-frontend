@@ -3,6 +3,7 @@ import { getUserCartById } from "../../api/users";
 import {
   postAddItemsToCart,
   deleteItemFromCart,
+  deleteAllItemsFromCart,
   getCartItems,
   putCartItemQuantity,
 } from "../../api/cart";
@@ -52,6 +53,22 @@ export const removeItemFromCart = createAsyncThunk(
   }
 );
 
+export const removeAllItemsFromCart = createAsyncThunk(
+  "cart/removeAllItemsFromCart",
+  async (cart_id, thunkAPI) => {
+    try {
+      const data = await deleteAllItemsFromCart(cart_id);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data ||
+          error.message ||
+          "Failed to remove items from cart"
+      );
+    }
+  }
+);
+
 export const fetchCartItems = createAsyncThunk(
   "cart/fetchCartItems",
   async (cart_id, thunkAPI) => {
@@ -92,6 +109,7 @@ const CartSlice = createSlice({
     cartItems: null,
     cartItemsLoading: false,
     cartItemsError: false,
+    removeAllCartItemsError: false,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -120,7 +138,6 @@ const CartSlice = createSlice({
           action.payload || "There was an error adding items to the cart.";
       })
       .addCase(removeItemFromCart.fulfilled, (state, action) => {
-        // Remove the item from cartItems in state if you want instant UI update
         if (state.cartItems) {
           state.cartItems = state.cartItems.filter(
             (item) => item.product_id !== action.payload
@@ -131,6 +148,11 @@ const CartSlice = createSlice({
         state.cartItemsError =
           action.payload ||
           "There was an error removing the item from the cart.";
+      })
+      .addCase(removeAllItemsFromCart.rejected, (state, action) => {
+        state.removeAllCartItemsError =
+          action.payload ||
+          "There was an error removing all items from the cart.";
       })
       .addCase(fetchCartItems.pending, (state) => {
         state.cartItems = null;

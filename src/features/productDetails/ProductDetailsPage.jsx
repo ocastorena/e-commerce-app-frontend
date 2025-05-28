@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProductById, selectProductDetails } from "./ProductDetailsSlice";
 import { selectCartId, addItemsToCart } from "../cart/CartSlice";
 import ProductDetails from "./ProductDetails";
-import ConfirmationModal from "./ConfirmationModal";
+import ConfirmationModal from "../../components/ConfirmationModal";
 
 function ProductDetailsPage() {
   const { product_id } = useParams();
@@ -60,7 +60,8 @@ function ProductDetailsPage() {
       {showConfirmation && (
         <ConfirmationModal
           message="Product added to cart successfully!"
-          onCartClick={handleOnCartClick}
+          onGoToClick={handleOnCartClick}
+          goToMessage={"Go to Cart"}
           onContinueClick={onContinueClick}
         />
       )}

@@ -39,13 +39,18 @@ const ModalButton = styled.button`
   }
 `;
 
-const ConfirmationModal = ({ message, onCartClick, onContinueClick }) => {
+const ConfirmationModal = ({
+  message,
+  onGoToClick,
+  goToMessage,
+  onContinueClick,
+}) => {
   return (
     <ModalOverlay>
       <ModalContent>
         <h3>{message}</h3>
         <div>
-          <ModalButton onClick={onCartClick}>Go to Cart</ModalButton>
+          <ModalButton onClick={onGoToClick}>{goToMessage}</ModalButton>
           <ModalButton onClick={onContinueClick}>Continue Shopping</ModalButton>
         </div>
       </ModalContent>
