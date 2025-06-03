@@ -96,7 +96,6 @@ const CheckoutForm = ({ onSubmitPaymentRef, onPaymentSuccess }) => {
 
   // Assign the handler to the ref so the parent can call it
   useEffect(() => {
-    console.log("in CheckoutForm useEffect");
     if (onSubmitPaymentRef) {
       onSubmitPaymentRef.current = handlePayment;
     }
