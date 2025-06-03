@@ -1,8 +1,5 @@
-import React from "react";
 import styled from "styled-components";
 import ItemCard from "./ItemCard";
-
-const Container = styled.div``;
 
 const Top = styled.div`
   display: flex;
@@ -25,7 +22,7 @@ const List = styled.ul`
 
 const CartList = ({ cartItems, onRemove, onQuantityChange }) => {
   return (
-    <Container>
+    <>
       <Top>
         <h2>Shopping Cart</h2>
         <PriceText>Price</PriceText>
@@ -40,7 +37,7 @@ const CartList = ({ cartItems, onRemove, onQuantityChange }) => {
           />
         ))}
       </List>
-    </Container>
+    </>
   );
 };
 
