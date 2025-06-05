@@ -13,9 +13,7 @@ import {
 } from "../cart/CartSlice";
 import { createOrder } from "../orders/OrdersSlice";
 
-const stripePromise = loadStripe(
-  "pk_test_51RRPR8PA3oqa7hWqQxoyRfIjvFh9hNfgmMsifQyvCIADraxDRLhjZmmn98IQgjFVJVV6kxyvtyWdaAYiM2e07Z2V00K7okZrLj"
-);
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 const Checkout = () => {
   const navigate = useNavigate();
