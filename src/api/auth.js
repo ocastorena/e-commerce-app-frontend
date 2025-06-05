@@ -9,10 +9,11 @@ export const getSession = async () => {
 };
 
 export const loginUser = async (email, password) => {
-  const response = await axios.post(`${API_BASE_URL}/login`, {
-    email,
-    password,
-  });
+  const response = await axios.post(
+    `${API_BASE_URL}/login`,
+    { email, password },
+    { withCredentials: true }
+  );
   return response.data;
 };
 
