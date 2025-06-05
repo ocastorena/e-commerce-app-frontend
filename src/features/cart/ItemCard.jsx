@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const Card = styled.div`
@@ -74,13 +73,13 @@ const ItemCard = ({ item, onRemove, onQuantityChange }) => {
   return (
     <Card>
       <img
-        src={`${import.meta.env.VITE_API_URL}${item.imageurl}`}
-        alt={item.name}
+        src={item.product.images?.[0] || item.product.thumbnail}
+        alt={item.product.name}
       />
       <Container>
         <Top>
-          <h3>{item.name}</h3>
-          <span>{item.price}</span>
+          <h3>{item.product.name}</h3>
+          <span>{item.product.price}</span>
         </Top>
         <Bottom>
           <RemoveButton
@@ -108,7 +107,7 @@ const ItemCard = ({ item, onRemove, onQuantityChange }) => {
               onQuantityChange(item.product_id, parseInt(e.target.value, 10))
             }
           >
-            {Array.from({ length: item.stock_quantity }, (_, index) => (
+            {Array.from({ length: item.quantity }, (_, index) => (
               <option key={index + 1} value={index + 1}>
                 {index + 1}
               </option>

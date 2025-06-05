@@ -41,7 +41,7 @@ function ProductList({ products, onClickProduct }) {
       <StyledProductList>
         {visibleProducts.map((product) => (
           <ProductCard
-            key={product.product_id}
+            key={product.id}
             product={product}
             onClickProduct={onClickProduct}
           />

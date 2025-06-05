@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import styled from "styled-components";
 
 const Card = styled.li`
@@ -93,9 +92,11 @@ const OrderCard = ({ order, items, open, onClick }) => (
           items.map((item) => (
             <Item key={item.product_id}>
               <ItemInfo>
-                {item.product_name} &mdash; Qty: {item.quantity}
+                {item.product.title} &mdash; Qty: {item.quantity}
               </ItemInfo>
-              <ItemPrice>${Number(item.unit_price).toFixed(2)}</ItemPrice>
+              <ItemPrice>
+                ${Number(item.unit_price * item.quantity).toFixed(2)}
+              </ItemPrice>
             </Item>
           ))
         )}
