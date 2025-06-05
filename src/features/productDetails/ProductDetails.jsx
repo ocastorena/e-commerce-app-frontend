@@ -29,18 +29,23 @@ const TopRow = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   gap: 2rem;
 
-  /* If you want them stacked on small screens, you can add a media query:
-     @media (max-width: 600px) {
-       flex-direction: column;
-     }
-  */
+  @media (max-width: 900px) {
+    grid-template-areas:
+      "image"
+      "info"
+      "desc";
+    grid-template-columns: 1fr;
+  }
 `;
 
 const ProductImage = styled.img`
   grid-area: image;
   width: 100%;
+  max-width: 400px;
   margin-right: 2rem;
   border-radius: 0.5rem;
+  background: #222;
+  object-fit: cover;
 `;
 
 const InfoColumn = styled.div`
@@ -52,18 +57,21 @@ const InfoColumn = styled.div`
 
 const ProductName = styled.h2`
   font-size: 1.5rem;
+  color: #fff;
 `;
 
 const ProductPrice = styled.span`
   margin-top: 2rem;
   font-size: 1.25rem;
-  color: #a1a1a1;
+  color: #b48cff;
+  font-weight: 600;
 `;
 
 const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 6rem;
+  gap: 1rem;
 `;
 
 const QuantitySelect = styled.select`
@@ -83,17 +91,17 @@ const QuantitySelect = styled.select`
 `;
 
 const AddToCartButton = styled.button`
-  margin-top: 2rem;
   padding: 0.75rem;
-  background-color: #d9d9d9;
-  color: #000000;
+  background-color: #b48cff;
+  color: #181818;
   border: none;
   border-radius: 0.5rem;
   font-weight: bold;
   cursor: pointer;
+  transition: background 0.2s;
 
   &:hover {
-    opacity: 0.9;
+    background-color: #a084e8;
   }
 `;
 
@@ -101,12 +109,16 @@ const DescriptionContainer = styled.div`
   grid-area: desc;
   display: flex;
   flex-direction: column;
+  margin-top: 2rem;
 `;
 
-const DescriptionTitle = styled.h3``;
+const DescriptionTitle = styled.h3`
+  color: #fff;
+  margin-bottom: 0.5rem;
+`;
 
 const Description = styled.p`
-  margin-top: 20px;
+  margin-top: 0;
   line-height: 1.5;
   color: #cccccc;
 `;
@@ -120,33 +132,43 @@ function ProductDetails({
 }) {
   return (
     <>
-      <BackButton onClick={onBackClick}>Back</BackButton>
+      <BackButton onClick={onBackClick} aria-label="Back to products">
+        Back
+      </BackButton>
       <Container>
-        {/* Top section with image on the left and product info on the right */}
         <TopRow>
           <ProductImage
-            src={`${import.meta.env.VITE_API_URL}${product.imageurl}`}
+            src={product.images?.[0] || product.thumbnail}
             alt={product.name}
+            loading="lazy"
           />
-
           <InfoColumn>
             <ProductName>{product.name}</ProductName>
-            <ProductPrice>${product.price}</ProductPrice>
+            <ProductPrice>${Number(product.price).toFixed(2)}</ProductPrice>
             <ButtonsContainer>
+              <label
+                htmlFor="quantity-select"
+                style={{ color: "#fff", marginBottom: 4 }}
+              >
+                Quantity
+              </label>
               <QuantitySelect
                 id="quantity-select"
                 name="quantity"
                 value={quantity}
                 onChange={onQuantityChange}
+                aria-label="Select quantity"
               >
-                {Array.from({ length: product.stock_quantity }, (_, index) => (
+                {Array.from({ length: product.stock }, (_, index) => (
                   <option key={index + 1} value={index + 1}>
                     {index + 1}
                   </option>
                 ))}
               </QuantitySelect>
-
-              <AddToCartButton onClick={onAddToCartClick}>
+              <AddToCartButton
+                onClick={onAddToCartClick}
+                aria-label="Add to cart"
+              >
                 Add to Cart
               </AddToCartButton>
             </ButtonsContainer>

@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const SummaryContainer = styled.div`
@@ -35,7 +34,7 @@ const CheckoutButton = styled.button`
 const CartSummary = ({ cartItems, onCheckout }) => {
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = cartItems
-    .reduce((sum, item) => sum + item.price * item.quantity, 0)
+    .reduce((sum, item) => sum + item.product.price * item.quantity, 0)
     .toFixed(2);
 
   return (
